@@ -14,8 +14,9 @@ buildscript {
 	}
 }
 
-group='org'
-version = '0.0.1-SNAPSHOT'
+group='org.svenehrke'
+//version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 sourceCompatibility = 1.7
@@ -37,22 +38,22 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 	from 'build/docs/javadoc'
 }
 
-task sourcesJar(type: Jar) {
+task sourcesJar(type: Jar, dependsOn: classes) {
 	from sourceSets.main.allSource
 	classifier = 'sources'
 }
+
+artifacts {
+	archives sourcesJar
+	archives javadocJar
+}
+
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			from components.java
 			artifact sourcesJar
 			artifact javadocJar
-
-			pom.withXml {
-				def root = asNode()
-				root.appendNode('description', 'a simple java library as an example for Bintray publishing')
-				root.children().last() + pomConfig
-			}
 		}
 	}
 }
