@@ -1,0 +1,13 @@
+to use the library in you build.gradle add to following repo:
+
+  repositories {
+    maven {
+      url 'http://dl.bintray.com/svene/mavenrepo'
+    }
+  }
+
+and then add the following dependency:
+
+  compile 'org.svenehrke:javaplaylib:0.0.1'
+
+
